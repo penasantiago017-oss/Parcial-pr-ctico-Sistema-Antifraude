@@ -1,0 +1,122 @@
+README
+
+# Parcial — Detector de Transmisiones Sospechosas
+
+Nombre:  Said Peña
+
+## 1. ¿Qué debe hacer el programa?
+
+Escriba en máximo 3 o 4 líneas cuál es el objetivo del programa.
+
+Respuesta: El programa debe registrar y analizar transmisiones de datos en memoria para evaluar de manera automática su nivel de sospecha según reglas preestablecidas. Los resultados se mostrarán a través de un menú interactivo en consola y toda la información se mantendrá de forma persistente utilizando un archivo en formato JSON.
+
+
+---
+
+## 2. Clase `Transmision`
+
+La clase tendrá los siguientes atributos:
+
+- `id`: Identificador único numérico de la transmisión.
+- `origen`: Remitente o dirección de donde proviene la transmisión.
+- `mensaje`: Contenido textual o cuerpo de la transmisión a evaluar.
+- `puntaje`: Valor numérico acumulado que determina la gravedad del riesgo.
+- `clasificacion`: Categoría asignada a la transmisión según su nivel de puntaje (ej. NORMAL, SOSPECHOSA, ALTO RIESGO).
+
+Escriba brevemente qué representa cada uno.
+
+---
+
+## 3. Métodos
+
+### `analizar()`
+
+Responsabilidad: Evaluar el contenido del mensaje y el origen aplicando las reglas de seguridad vigentes para calcular, actualizar y retornar el puntaje de riesgo de la transmisión.
+
+### `clasificar()`
+
+Responsabilidad: Asignar y retornar la etiqueta de categoría correspondiente (como NORMAL o SOSPECHOSA) comparando el puntaje obtenido con los rangos definidos por la entidad.
+
+### `to_dict()`
+
+Responsabilidad: Serializar el objeto convirtiendo todas sus propiedades y atributos actuales en un diccionario estándar de Python para que pueda ser guardado de forma compatible con JSON.
+
+### `from_dict()`
+
+Responsabilidad: Actuar como un método de clase (`@classmethod`) para instanciar y reconstruir un objeto de tipo `Transmision` a partir de un diccionario de datos leído desde el archivo JSON.
+
+---
+
+## 4. Algoritmo de análisis
+
+Complete el siguiente pseudocódigo:
+
+```text
+puntaje = 0
+
+SI el mensaje contiene palabras claves (ej. "fraude", "hack")
+    sumar 30 puntos
+
+SI el mensaje contiene es de una dirección o IP no reconocida o bloqueada
+    sumar 25 puntos
+
+SI el mensaje contiene se envía en un horario de alta vulnerabilidad (madrugada)
+    sumar 20 puntos
+
+SI el mensaje contiene viene vacío o con longitud inválida
+    sumar 15 puntos
+
+SI el mensaje contiene caracteres especiales repetidos o estructuración anómala
+    sumar 10 puntos
+```
+
+---
+
+## 5. Persistencia
+
+Explique brevemente qué ocurre al iniciar el programa:
+
+```text
+JSON
+ ↓
+Lectura del archivo y parseo a diccionarios
+ ↓
+Instanciación de objetos usando from_dict() y carga en memoria
+```
+
+Explique qué ocurre al guardar:
+
+```text
+Objetos
+ ↓
+Conversión de instancias a diccionarios mediante to_dict() en una lista
+ ↓
+JSON
+```
+
+---
+
+## 6. Menú
+
+Indique qué debe hacer cada opción:
+
+### Opción 1 — Registrar transmisión
+
+1.  Solicitar los datos de entrada del usuario (ID, origen, mensaje) realizando las validaciones mínimas requeridas.
+2.  Instanciar el objeto llamando automáticamente a los métodos de análisis y clasificación correspondientes.  
+3.  Almacenar el nuevo objeto en la lista general en memoria.  
+
+### Opción 2 — Listar transmisiones
+
+1.  Recorrer la lista de objetos almacenados en la memoria del sistema. 
+2.  Imprimir en pantalla los campos principales de cada transmisión (ID, origen, puntaje y clasificación). 
+
+### Opción 3 — Salir
+
+Acción: Guardar la lista de datos actualizados en el archivo JSON externo y finalizar de manera limpia la ejecución del programa.
+
+---
+
+## Nota
+
+Este archivo debe completarse durante los primeros 15 minutos del parcial, antes de comenzar la implementación.
